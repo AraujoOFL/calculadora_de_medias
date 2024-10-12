@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cálculo de Média</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #a5a5a5;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            width: 100%;
+            position: fixed;
+            top: 0;
+        }
+
+        h1 {
+            margin: 20px 0;
+        }
+
+        main {
+            background-color: rgb(240, 240, 240);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 80%;
+            max-width: 400px;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            text-align: left;
+        }
+
+        input{
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #7700ff;
+            color: white;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #6519bd;
+        }
+
+        .resultado {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #eaeaea;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Trabalho JavaScript - Calculadora de Médias</h1>
+    </header>
+
+    <main>
+        <p><em>(Lembrando que as notas vão de 0.0 até 100.0)</em></p>
+        <h1>Cálculo da Média do Aluno</h1>
+
+        <label for="nome">Nome do Aluno:</label>
+        <input type="text" id="nome" placeholder="Digite o nome do aluno" required>
+
+        <label for="nota1">Nota do 1º Bimestre:</label>
+        <input id="nota1" min="0" max="10" step="0.1" placeholder="Nota 1" required>
+
+        <label for="nota2">Nota do 2º Bimestre:</label>
+        <input id="nota2" min="0" max="10" step="0.1" placeholder="Nota 2" required>
+
+        <label for="nota3">Nota do 3º Bimestre:</label>
+        <input id="nota3" min="0" max="10" step="0.1" placeholder="Nota 3" required>
+
+        <label for="nota4">Nota do 4º Bimestre:</label>
+        <input id="nota4" min="0" max="10" step="0.1" placeholder="Nota 4" required>
+
+        <button type="button" onclick="calcularMedia()">Calcular Média</button>
+
+        <div class="resultado" id="resultado"></div>
+    </main>
+
+    <footer>
+        <p>Vincius Araujo dos Santos - 60300818</p>
+    </footer>
+
+    <script>
+        function calcularMedia() {
+            // get element's
+            let nome = document.getElementById("nome").value;
+            let nota1 = parseFloat(document.getElementById("nota1").value);
+            let nota2 = parseFloat(document.getElementById("nota2").value);
+            let nota3 = parseFloat(document.getElementById("nota3").value);
+            let nota4 = parseFloat(document.getElementById("nota4").value);
+
+            //  not null nos valores digitados
+            if (isNaN(nota1) || isNaN(nota2) || isNaN(nota3) || isNaN(nota4) || nome === "") {
+                document.getElementById('resultado').innerHTML = "Por favor, preencha todas as notas e o nome do aluno.";
+                return;
+            }
+
+            // obriga a digitar as notas entre 0 e 100
+            if ((nota1 < 0 || nota1 > 100) || (nota2 < 0 || nota2 > 100) || (nota3 < 0 || nota3 > 100) || (nota4 < 0 || nota4 > 100)) {
+                document.getElementById('resultado').innerHTML = "As notas devem estar entre 0 e 100.";
+                return;
+            }
+
+            // Calcula a media
+            let media = (nota1 + nota2 + nota3 + nota4) / 4;
+
+            //  Retorna APROVADO, REPROVADO ou FINAL
+            let resultadoTexto;
+            if (media < 40) {
+                resultadoTexto = `Aluno(a) ${nome} está REPROVADO(A) com média ${media.toFixed(2)}.`;
+            } else if (media >= 40 && media < 60) {
+                resultadoTexto = `Aluno(a) ${nome} está de FINAL com média ${media.toFixed(2)}.`;
+            } else {
+                resultadoTexto = `Aluno(a) ${nome} está APROVADO(A) com média ${media.toFixed(2)}.`;
+            }
+
+            // msotra o resultado
+            document.getElementById("resultado").textContent = resultadoTexto;
+        }
+    </script>
+</body>
+<!--madeBy AraujoOFL-->
+</html>
